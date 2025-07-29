@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: retail-service
+server:
+  port: 8084
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
+#    True by default
+    fetch-registry: true
+    register-with-eureka: true
