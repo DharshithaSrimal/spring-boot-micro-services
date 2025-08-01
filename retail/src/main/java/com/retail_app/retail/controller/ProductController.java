@@ -1,18 +1,17 @@
 package com.retail_app.retail.controller;
 
+import com.retail_app.retail.dto.ProductDTO;
 import com.retail_app.retail.model.EmployeeDTO;
 import com.retail_app.retail.model.Product;
-import com.retail_app.retail.service.RetailService;
+import com.retail_app.retail.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 
-import java.net.URI;
+
 import java.util.List;
 
 @RestController
@@ -36,28 +35,18 @@ public class ProductController {
     DiscoveryClient discoveryClient;
 
     @Autowired
-    RetailService retailService;
+    ProductService productService;
 
-    @GetMapping
-    public void fetchProducts(){
-        //RestTemplate hard coded URL
-        RestTemplate restTemplate = new RestTemplate();
-        String fooResourceUrl
-                = "http://localhost:8085/api/employees";
-        ResponseEntity<String> response
-                = restTemplate.getForEntity(fooResourceUrl, String.class);
+//    @GetMapping
+//    public ResponseEntity<List<ProductDTO>> fetchProducts(){
+//        List<ProductDTO> products = productService.getAllProducts();
+//        return ResponseEntity.ok(products);
+//    }
 
-        //RestTemplate fetch using Eureka
-        List<ServiceInstance> instances = discoveryClient.getInstances("employee");
-        URI employeeUri = instances.get(0).getUri();
-        ResponseEntity<String> empResponse
-                = restTemplate.getForEntity(employeeUri+"/api/employees", String.class);
-    }
-
-    @GetMapping("/api/employees")
-    public ResponseEntity<List<EmployeeDTO>> getEmployeesFromEmployeeService() {
-        List<EmployeeDTO> employees = retailService.fetchEmployeesFromEmployeeService();
-        return ResponseEntity.ok(employees);
-    }
+//    @GetMapping("/api/employees")
+//    public ResponseEntity<List<EmployeeDTO>> getEmployeesFromEmployeeService() {
+//        List<EmployeeDTO> employees = retailService.fetchEmployeesFromEmployeeService();
+//        return ResponseEntity.ok(employees);
+//    }
 
 }
