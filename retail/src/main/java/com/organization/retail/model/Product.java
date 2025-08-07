@@ -1,16 +1,15 @@
-package com.retail_app.retail.model;
-
+package com.organization.retail.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @Entity
-@Table
-@Data
-@NoArgsConstructor
+@Table(name = "product")
+//@Data
+//@AllArgsConstructor
+//@NoArgsConstructor
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,11 +39,34 @@ public class Product {
         return empId;
     }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public void setEmpId(Integer empId) {
+        this.empId = empId;
+    }
+
     public Product(Integer id, String name, String description, Double price, Integer empId) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
         this.empId = empId;
+    }
+
+    public Product() {
     }
 }

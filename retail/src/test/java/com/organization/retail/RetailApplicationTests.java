@@ -1,4 +1,4 @@
-package com.retail_app.retail;
+package com.organization.retail;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
