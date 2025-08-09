@@ -1,6 +1,7 @@
 package com.organization.retail.service;
 
 import com.organization.retail.dto.EmployeeDTO;
+import com.organization.retail.util.client.EmployeeClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
@@ -10,6 +11,9 @@ import org.springframework.web.client.RestTemplate;
 public class EmployeeService{
     @Autowired
     private RestTemplate restTemplate;
+
+    @Autowired
+    private EmployeeClient employeeFeignClient;
 
     private String employeeServiceUrl = "http://localhost:8085";
 
@@ -21,6 +25,16 @@ public class EmployeeService{
             // Log the error and return null or throw custom exception
             System.err.println("Error fetching employee with ID " + empId + ": " + e.getMessage());
             return null;
+        }
+    }
+
+    public EmployeeDTO getEmployee(Long id) {
+        try {
+            return employeeFeignClient.getEmployeeById(id);
+        } catch (Exception e) {
+            // Handle exceptions (network issues, 404, etc.)
+            System.err.println("Error fetching employee: " + e.getMessage());
+            throw e;
         }
     }
 
