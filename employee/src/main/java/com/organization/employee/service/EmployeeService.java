@@ -3,13 +3,19 @@ package com.organization.employee.service;
 import com.organization.employee.dao.EmployeeRepository;
 import com.organization.employee.dto.EmployeeDTO;
 import com.organization.employee.model.Employee;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+import static com.organization.employee.util.CacheConfig.ALL_EMPLOYEES_CACHE;
+
 @Service
+@CacheConfig(cacheNames = ALL_EMPLOYEES_CACHE)
 public class EmployeeService {
     @Autowired
     private EmployeeRepository employeeRepository;
@@ -23,12 +29,19 @@ public class EmployeeService {
         return convertToDTO(savedEmployee);
     }
 
+//    public List<EmployeeDTO> getAllEmployees() {
+//        return employeeRepository.findAll().stream()
+//                .map(this::convertToDTO)
+//                .toList();
+//    }
+// READ ALL - Cache the entire list
+// READ ALL - Cache the list
+    @Cacheable(value = ALL_EMPLOYEES_CACHE)
     public List<EmployeeDTO> getAllEmployees() {
         return employeeRepository.findAll().stream()
                 .map(this::convertToDTO)
                 .toList();
     }
-
     public EmployeeDTO getEmployeeById(Long id) {
         Optional<Employee> employeeOpt = employeeRepository.findById(id);
         return employeeOpt.map(this::convertToDTO).orElse(null);
