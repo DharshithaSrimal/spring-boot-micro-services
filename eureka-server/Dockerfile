@@ -1,7 +1,7 @@
 # FROM container-registry.oracle.com/java/openjdk:17
 FROM openjdk:17-jdk-slim
 EXPOSE 8761
-ADD target/eureka-server.jar eureka-server.jar
+ADD target/eureka-server.jar ./eureka-server.jar
 ENTRYPOINT ["java","-jar","/eureka-server.jar"]
 
 #Create an image
