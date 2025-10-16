@@ -3,6 +3,7 @@ package com.organization.employee.controller;
 import com.organization.employee.dto.EmployeeDTO;
 import com.organization.employee.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +15,9 @@ public class EmployeeController {
     @Autowired
     private EmployeeService employeeService;
 
+    @Value("${api.key}")
+    private String apiKey;
+
     @PostMapping
     public ResponseEntity<EmployeeDTO> createEmployee(@RequestBody EmployeeDTO employeeDTO) {
         EmployeeDTO createdEmployee = employeeService.createEmployee(employeeDTO);
@@ -21,9 +25,9 @@ public class EmployeeController {
     }
 
     @GetMapping
-    public ResponseEntity<List<EmployeeDTO>> getAllEmployees() {
-        List<EmployeeDTO> employees = employeeService.getAllEmployees();
-        return ResponseEntity.ok(employees);
+    public ResponseEntity<List<EmployeeDTO>> getAllEmployees(@RequestHeader("apiKey") String requestApiKey) {
+       List<EmployeeDTO> employees = employeeService.getAllEmployees();
+       return ResponseEntity.ok(employees);
     }
 
     @GetMapping("/{id}")
