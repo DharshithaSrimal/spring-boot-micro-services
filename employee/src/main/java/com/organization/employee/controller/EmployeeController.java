@@ -15,9 +15,6 @@ public class EmployeeController {
     @Autowired
     private EmployeeService employeeService;
 
-    @Value("${api.key}")
-    private String apiKey;
-
     @PostMapping
     public ResponseEntity<EmployeeDTO> createEmployee(@RequestBody EmployeeDTO employeeDTO) {
         EmployeeDTO createdEmployee = employeeService.createEmployee(employeeDTO);

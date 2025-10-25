@@ -9,3 +9,7 @@ ENTRYPOINT ["java","-jar","/eureka-server.jar"]
 
 #Run the container
 # docker run -p 8761:8761 --name=eureka-server -d eureka-server:0.1
+# or
+# docker run -p 8761:8761 \
+#  -e EUREKA_HOST=$PUBLIC_IP \
+#  --name=eureka-server -d eureka-server:0.1
