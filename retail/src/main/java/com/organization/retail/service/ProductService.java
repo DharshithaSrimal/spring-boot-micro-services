@@ -25,8 +25,8 @@ public class ProductService {
                 .map(product -> {
                     // Fetch employee data using the empId from product
                     EmployeeDTO employee = null;
-                    if (product.getEmpId() != null) {
-                        employee = employeeService.getEmployeeById(product.getEmpId());
+                    if (product.getCreatedBy() != null) {
+                        employee = employeeService.getEmployeeById(product.getCreatedBy());
                     }
 
                     // Create and return ProductDTO with employee data
@@ -51,9 +51,9 @@ public class ProductService {
         Product product = productOptional.get();
         // Fetch employee using Feign client
         EmployeeDTO employee = null;
-        if (product.getEmpId() != null) {
+        if (product.getCreatedBy() != null) {
             try {
-                employee = employeeService.getEmployeeById(product.getEmpId());
+                employee = employeeService.getEmployeeById(product.getCreatedBy());
             } catch (Exception e) {
                 e.getMessage();
             }
