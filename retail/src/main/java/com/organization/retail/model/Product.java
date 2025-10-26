@@ -14,7 +14,9 @@ public class Product {
     private String name;
     private String description;
     private Double price;
-    private Integer empId;
+//    private Integer empId;
+    @Column(name = "createdBy")
+    private Integer createdBy;
 
     public Integer getId() {
         return id;
@@ -32,8 +34,8 @@ public class Product {
         return price;
     }
 
-    public Integer getEmpId() {
-        return empId;
+    public Integer getCreatedBy() {
+        return createdBy;
     }
 
     public void setId(Integer id) {
@@ -52,16 +54,17 @@ public class Product {
         this.price = price;
     }
 
-    public void setEmpId(Integer empId) {
-        this.empId = empId;
+    public void setCreatedBy(Integer createdBy) {
+        this.createdBy = createdBy;
     }
 
-    public Product(Integer id, String name, String description, Double price, Integer empId) {
+    public Product(Integer id, String name, String description, Double price, Integer createdBy) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
-        this.empId = empId;
+        this.createdBy = createdBy;
+//        this.empId = empId;
     }
 
     public Product() {
